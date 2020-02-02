@@ -31,6 +31,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       messages: [],
+      responses: [],
+      index: 0,
     }
   }
   
@@ -39,7 +41,7 @@ class App extends React.Component {
       messages: [
         {
           _id: 1,
-          text: 'Hello developer',
+          text: 'Hi, I am Ana from Instlert Support. How may I be of assistance today?',
           createdAt: new Date(),
           user: {
             _id: 2,
@@ -48,13 +50,54 @@ class App extends React.Component {
           },
         },
       ],
+      responses: [
+        {
+          _id: 2,
+          text: 'Yes, how could I help?',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+        {
+          _id: 3,
+          text: 'I will redirect you to Google Maps, safest route avoiding all fires will be highlighted. Stay calm, stay safe and goodluck!',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+          //image: 'https://cdn.mos.cms.futurecdn.net/QfKySb5DGobYXvSGffoLag-970-80.jpg'
+        },
+
+      ]
     })
   }
+
+  // goToLocation() {
+  //   openMap({ latitude: 37.865101, longitude: -119.538330 });
+  // }
 
   onSend(messages = []) {
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, messages),
     }))
+
+    if(this.state.index <2){ 
+    
+      this.setState( (previousState) => ({
+
+        
+        messages: GiftedChat.append(previousState.messages, 
+          this.state.responses[this.state.index],
+          ),
+          index: this.state.index + 1,
+      }))
+    }
+    
   }
 
   render() {
